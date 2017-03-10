@@ -33,6 +33,7 @@
 
 //
 #include <iostream>
+#include <fstream>
 #include <exception>
 #include <regex>
 
@@ -82,7 +83,7 @@ int main()
 
 			case 2:{
 				string name;
-				cout << "Ingrese su nombre";
+				cout << "Ingrese su nombre: ";
 				cin >> name;
 
 				temp.setNombre(name);
@@ -818,8 +819,188 @@ void sesionAdmin(DataBase* db, UsuarioA* admin)
 	}
 }
 
+void venderConsola(DataBase* db, Venta* sale)
+{
+	//Salir si no hay consolas
+	if(db->consolas.size() <= 0)
+	{
+		cout << "No hay consolas.\n";
+		return;
+	}
+
+	imprimirConsolas(db);
+		
+	int index;
+	cout << "Ingrese el indice de la consola que desea vender: ";
+	cin >> index;
+
+	if(index < 0 || index > db->consolas.size() - 1)
+		cout << "No se ha realizado la venta.\n";
+	else
+	{
+		sale->addConsola(db->consolas[index]);
+		db->consolas.erase(db->consolas.begin() + index);
+		cout << "Consola vendida.\n";
+	}
+}
+
+void venderJuego(DataBase* db, Venta* sale)
+{
+	//Salir si no hay juegos
+	if(db->juegos.size() <= 0)
+	{
+		cout << "No hay juegos.\n";
+		return;
+	}
+
+	imprimirVideoJuegos(db);
+	
+	int index;
+	cout << "Ingrese el indice del juego a eliminar: ";
+	cin >> index;
+
+	if(index < 0 || index > db->juegos.size() - 1)
+		cout << "No se ha eliminado nada.\n";
+	else
+	{
+		sale->addJuego(db->juegos[index]);
+		db->juegos.erase(db->juegos.begin() + index);
+		cout << "Juego eliminado.\n";
+	}
+}
+
+void vender(DataBase* db, UsuarioT* temp)
+{
+	//Revisar si hay algo en inventario
+	if(db->consolas.size() <= 0 && db->juegos.size() <= 0)
+	{
+		cout << "No hay nada en inventario.\nNo se puede realizar una compra.\n";
+		return;
+	}
+	
+	string nombreCliente;
+	string nombreVendedor = temp->getNombre();
+
+	cout << "Ingrese el nombre del cliente: ";
+	cin >> nombreCliente;
+	
+	//Iniciar venta
+	Venta venta(nombreCliente, nombreVendedor);
+
+	int op = 1;
+	while(op != 0)
+	{
+		cout << "Ingrese el numero de la opcion: \n"
+		<<		"1. Vender consola\n"
+		<<		"2. Vender juego\n"
+		<<		"0. Cerrar compra\n"
+		<<		"->";
+		cin >> op;
+		
+		switch(op)
+		{
+			case 1:{
+				venderConsola(db, &venta);
+				break;
+			}
+			
+			case 2:{
+				venderJuego(db, &venta);
+				break;
+			}
+		}
+	}
+
+	//Cerrar venta
+	int subtotal = 0;
+	for(Consola* con : venta.listaConsolas)
+		subtotal += con->getPrecio();
+
+	for(VideoJuego* vid : venta.listaJuegos)
+		subtotal += vid->getPrecio();
+
+	venta.setSubTotal(subtotal);
+
+	string path = "./log_venta/" + venta.getFecha() + "_" + venta.getHora() + ".log";
+
+	ofstream nlog(path.c_str());
+	
+	nlog << "\t\tGAMEHUB\n"
+	<<		"Fecha:\t" << venta.getFecha() << endl
+	<<		"Hora:\t" << venta.getHora() << endl
+	<<		"Vendedor:\t" << venta.getNombreVendedor() << endl
+	<<		"\nCantidad articulos " << (venta.listaConsolas.size() + venta.listaJuegos.size()) << endl << endl;
+
+	for(Consola* con : venta.listaConsolas)
+		nlog << con->getModelo() << "\t" << con->getPrecio() << endl;
+
+	for(VideoJuego* vid : venta.listaJuegos)
+		nlog << vid->getNombre() << "\t" << vid->getPrecio() << endl;
+
+	nlog << "Subtotal: L." << venta.getSubtotal() << endl;
+	nlog << "Impuesto: L." << ((double)(venta.getSubtotal()) * 0.15) << endl;
+	nlog << "Total: L." << ((double)(venta.getSubtotal()) * 1.15) << endl;
+
+	nlog.close();
+	cout << "Log guardado.\n";
+
+	//Guardar en usuario
+	temp->addArticulosVendidos(venta.listaConsolas.size() + venta.listaJuegos.size());
+	temp->addDineroGenerado(((double)(venta.getSubtotal()) * 1.15));
+}
+
+void cerrarSesion(UsuarioT* temp)
+{
+	string path = "./usuarios_log/" + temp->getNombre() + "-" + temp->getSalida() + ".log";
+
+	ofstream nlog(path.c_str());
+	
+	nlog << "\t\tGAMEHUB\n"
+	<<		"Nombre: " << temp->getNombre() << endl
+	<<		"Hora Entrada: " << temp->getEntrada() << endl
+	<<		"Hora Salida: " << temp->getSalida() << endl << endl
+	<<		"Cantidad de articulos vendidos: " << temp->getArticulosVendidos() << endl
+	<<		"Dinero generado: " << temp->getDineroGenerado();
+
+	nlog.close();
+}
 
 void sesionTemporal(DataBase* db, UsuarioT* temp)
 {
 
+	int op = 1;
+
+	while(op != 0)
+	{	
+		cout << "Ingrese el numero de la opcion:\n" 
+		<< 		"1. Agregar consola.\n"
+		<<		"2. Agregar video juego.\n"
+		<<		"3. Vender.\n"
+		<<		"0. Cerrar sesion.\n"
+		<<		"->";
+		
+		cin >> op;
+
+		switch(op)
+		{
+			case 1:{
+				agregarConsola(db);
+				break;
+			}
+			case 2:{
+				agregarVideoJuego(db);
+				break;
+			}
+
+			case 3:{
+				vender(db, temp);
+				break;
+			}
+
+			case 0:{
+				cerrarSesion(temp);
+				break;
+			}
+		}
+	}
 }

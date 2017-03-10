@@ -39,6 +39,14 @@ string Venta::getHora()
 	return time;
 }
 
+string Venta::getFecha()
+{
+	tm *ltm = localtime(&horaVenta);
+	string dt =  to_string(ltm->tm_mday) + "-" + to_string(1 + ltm->tm_mon) + "-" + to_string(1900 + ltm->tm_year);
+
+	return dt;
+}
+
 string Venta::getNombreVendedor()
 {
 	return nombreVendedor;
@@ -69,4 +77,9 @@ void Venta::addJuego(VideoJuego* nJuego)
 void Venta::setNombreVendedor(string nVendedor)
 {
 	nombreVendedor = nVendedor;
+}
+
+void Venta::setSubTotal(double nSub)
+{
+	subtotal = nSub;
 }

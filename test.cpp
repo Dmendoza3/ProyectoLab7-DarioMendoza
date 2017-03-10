@@ -1,10 +1,12 @@
 //#include "Consola.h"
 //#include "Microsoft.h"
 
+#include <ctime>
 #include <vector>
 #include <typeinfo>
 #include <iostream>
 #include <string>
+#include <fstream>
 
 using namespace std;
 
@@ -41,8 +43,20 @@ void addOne(int* a, int size)
 }
 
 int main()
-{	
-	cout << "ñ";
+{	  
+//	ofstream o(".\\log_ventas\\sdsd.log");
+	string wew = "d";
+	string c = "./log_venta/" + wew + "addd.log";
+	ofstream o(c.c_str());
+
+	o << "sdads";
+	
+	o.close();
+	/*time_t horaVenta = time(0) ;
+    tm *ltm = localtime(&horaVenta);
+    string dt =  to_string(ltm->tm_mday) + "/" + to_string(1 + ltm->tm_mon) + "/" + to_string(1900 + ltm->tm_year);
+
+    cout << dt;*/
 	
 	/*int d[] = {0,0,0,0,0,0};
 

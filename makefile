@@ -66,4 +66,4 @@ Venta.o:	Venta.h Venta.cpp
 	g++ Venta.cpp -c -std=c++11
 
 clean:
-	rm *.o
+	rm *.o *.h.gch main

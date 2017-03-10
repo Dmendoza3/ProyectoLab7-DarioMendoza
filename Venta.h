@@ -12,13 +12,14 @@ class Venta
 {
 	private:
 		string nombreCliente;
-		vector<Consola*> listaConsolas;
-		vector<VideoJuego*> listaJuegos;
 		time_t horaVenta;
 		string nombreVendedor;
 		double subtotal;
 		
 	public:
+		vector<Consola*> listaConsolas;
+		vector<VideoJuego*> listaJuegos;
+
 		//Constructor
 		Venta();
 		Venta(string, string); //Nombre cliente, Nombre Vendedor
@@ -28,6 +29,7 @@ class Venta
 		Consola* getConsola(int);
 		VideoJuego* getJuego(int);
 		string getHora();
+		string getFecha();
 		string getNombreVendedor();
 		double getSubtotal();
 
@@ -36,6 +38,7 @@ class Venta
 		void addConsola(Consola*);
 		void addJuego(VideoJuego*);
 		void setNombreVendedor(string);
+		void setSubTotal(double);
 
 };
 

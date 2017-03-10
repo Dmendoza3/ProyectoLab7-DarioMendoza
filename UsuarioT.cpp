@@ -44,12 +44,22 @@ string UsuarioT::getSalida()
 }
 
 //Setters
+void UsuarioT::addArticulosVendidos(int nArticulos)
+{
+	articulosVendidos += nArticulos;
+}
+
+void UsuarioT::addDineroGenerado(double nDineroGenerado)
+{
+	dineroGenerado += nDineroGenerado;
+}
+
 void UsuarioT::setArticulosVendidos(int nArticulos)
 {
-	articulosVendidos = nArticulos;
+	articulosVendidos += nArticulos;
 }
 
 void UsuarioT::setDineroGenerado(double nDineroGenerado)
 {
-	dineroGenerado = nDineroGenerado;
+	dineroGenerado += nDineroGenerado;
 }

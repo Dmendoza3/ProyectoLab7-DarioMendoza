@@ -26,6 +26,8 @@ class UsuarioT : public Usuario
 		string getSalida();
 
 		//Setter
+		void addArticulosVendidos(int);
+		void addDineroGenerado(double);
 		void setArticulosVendidos(int);
 		void setDineroGenerado(double);
 };
