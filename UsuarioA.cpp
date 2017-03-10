@@ -1,17 +1,21 @@
 #include "UsuarioA.h"
 
-Usuario::UsuarioA(){}
+//Constructor
+UsuarioA::UsuarioA(){}
 
-Usuario::UsuarioA(string nNombre, string nPassword) : Usuario(nNombre)
+UsuarioA::UsuarioA(string nNombre, string nPassword) : Usuario(nNombre)
 {
 	pass = nPassword;
 }
 
+
+//Getters
 string UsuarioA::getPassword()
 {
-	reutn pass;
+	return pass;
 }
 
+//Setters
 void UsuarioA::setPassword(string nPassword)
 {
 	pass = nPassword;

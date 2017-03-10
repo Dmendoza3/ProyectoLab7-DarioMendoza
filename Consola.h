@@ -1,5 +1,7 @@
 #include <string>
 
+using namespace std;
+
 #ifndef CONSOLA_H
 #define CONSOLA_H
 
@@ -31,6 +33,8 @@ class Consola
 		void setSerie(string);
 		void setPrecio(double);
 		
+		//Destructor
+		virtual ~Consola();
 };
 
 #endif

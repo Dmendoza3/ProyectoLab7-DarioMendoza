@@ -1,25 +1,33 @@
-		#include "Usuario.h"
+#include <ctime>
 
+#include "Usuario.h"
 
-#ifndef USUARIOA_H
-#define USUARIOA_H
+#ifndef USUARIOT_H
+#define USUARIOT_H
 
 class UsuarioT : public Usuario
 {
 	private:
-		string pass;
-		//Hora entrada, hora salida, dinero generado, articulos vendidos|
+		int articulosVendidos;
+		double dineroGenerado;
+		time_t horaEntrada;
+
+		//Hora entrada, hora salida
 
 	public:
 		//Constructor
 		UsuarioT();
-		UsuarioT(string, );
+		UsuarioT(string);
 
 		//Getter
-		string getPassword();
+		int getArticulosVendidos();
+		double getDineroGenerado();
+		string getEntrada();
+		string getSalida();
 
 		//Setter
-		void setPassword(string);
+		void setArticulosVendidos(int);
+		void setDineroGenerado(double);
 };
 
 #endif

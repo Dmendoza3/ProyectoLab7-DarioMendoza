@@ -1,18 +1,55 @@
-#include "UsuarioA.h"
+#include "UsuarioT.h"
 
-Usuario::UsuarioA(){}
-
-Usuario::UsuarioA(string nNombre, string nPassword) : Usuario(nNombre)
+UsuarioT::UsuarioT()
 {
-	pass = nPassword;
+	horaEntrada = time(0);
 }
 
-string UsuarioA::getPassword()
+UsuarioT::UsuarioT(string nNombre) : Usuario(nNombre)
 {
-	reutn pass;
+	articulosVendidos = 0;
+	dineroGenerado = 0;
+	horaEntrada = time(0);
 }
 
-void UsuarioA::setPassword(string nPassword)
+
+//Getters
+int UsuarioT::getArticulosVendidos()
 {
-	pass = nPassword;
+	return articulosVendidos;
+}
+
+double UsuarioT::getDineroGenerado()
+{
+	return dineroGenerado;
+}
+
+string UsuarioT::getEntrada()
+{
+	//TODO: to_string in c++11 for times 
+	//		add zeros to time
+	tm *ltm = localtime(&horaEntrada);
+	string time = to_string(1 + ltm->tm_hour) + ":" + to_string(1 + ltm->tm_min) + ":" + to_string(1 + ltm->tm_sec);
+
+	return time;
+}
+
+string UsuarioT::getSalida()
+{	
+	time_t horaSalida = time(0);
+	tm *ltm = localtime(&horaSalida);
+	string time = to_string(1 + ltm->tm_hour) + ":" + to_string(1 + ltm->tm_min) + ":" + to_string(1 + ltm->tm_sec);
+
+	return time;
+}
+
+//Setters
+void UsuarioT::setArticulosVendidos(int nArticulos)
+{
+	articulosVendidos = nArticulos;
+}
+
+void UsuarioT::setDineroGenerado(double nDineroGenerado)
+{
+	dineroGenerado = nDineroGenerado;
 }

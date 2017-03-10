@@ -1,5 +1,10 @@
 #include "Nintendo.h"
 
+Nintendo::Nintendo(){}
+
+Nintendo::Nintendo(int nYear, int nModelo, char nEstado, string nSerie, double nPrecio) : Consola(nYear, nModelo, nEstado, nSerie, nPrecio)
+{}
+
 string Nintendo::getModelo()
 {
 	switch(modelo)
@@ -21,9 +26,3 @@ string Nintendo::getModelo()
 	}
 	return "Codigo de modelo invalido";
 }
-
-string Nintendo::getSerie()
-{
-	return "NN" + (modelo > 9)?"0":"" + modelo + serie;
-}
-

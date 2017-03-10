@@ -6,9 +6,10 @@
 class Microsoft : public Consola
 {
 	public:
-		virtual string getModelo();
-        virtual string getSerie();
+		Microsoft();
+		Microsoft(int, int, char, string, double);
 
+		virtual string getModelo();
 };
 
 #endif

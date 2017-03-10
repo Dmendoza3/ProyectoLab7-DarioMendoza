@@ -1,5 +1,7 @@
 #include <string>
 
+using namespace std;
+
 #ifndef JUEGO_H
 #define JUEGO_H
 
@@ -31,14 +33,17 @@ class VideoJuego
 		double getPrecio();
 
 		//Setters
-		void getNombre(string);
-		void getYear(int);
-		void getConsola(string);
-		void getJugadores(int);
-		void getGenero(string);
-		void getEstado(string);
-		void getSerie(char);
-		void getPrecio(double);
+		void setNombre(string);
+		void setYear(int);
+		virtual void setConsola(string);
+		void setJugadores(int);
+		void setGenero(string);
+		void setEstado(char);
+		virtual void setSerie(string);
+		void setPrecio(double);
+		
+		//Destructor
+		~VideoJuego();
 };
 
 #endif

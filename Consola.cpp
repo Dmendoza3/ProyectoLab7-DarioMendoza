@@ -3,7 +3,7 @@
 //Constructor
 Consola::Consola(){}
 
-Consola(int nYear, int nModelo, char nEstado, string nSerie, double nPrecio)
+Consola::Consola(int nYear, int nModelo, char nEstado, string nSerie, double nPrecio)
 {
 	year = nYear;
 	modelo = nModelo;
@@ -63,3 +63,6 @@ void Consola::setPrecio(double nPrecio)
 {
 	precio = nPrecio;
 }
+
+//Destructor
+Consola::~Consola(){}

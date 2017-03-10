@@ -6,9 +6,11 @@
 class Nintendo: public Consola
 {
 	public:
-		virtual string getModelo();
-        virtual string getSerie();
+		Nintendo();
+        Nintendo(int, int, char, string, double);
 
+
+		virtual string getModelo();
 };
 
 #endif

@@ -1,5 +1,10 @@
 #include "Sony.h"
 
+Sony::Sony(){}
+
+Sony::Sony(int nYear, int nModelo, char nEstado, string nSerie, double nPrecio) : Consola(nYear, nModelo, nEstado, nSerie, nPrecio)
+{}
+
 string Sony::getModelo()
 {
 	switch(modelo)
@@ -13,9 +18,3 @@ string Sony::getModelo()
 	}
 	return "Codigo de modelo invalido";
 }
-
-string Sony::getSerie()
-{
-	return "SN0" + modelo  + serie;
-}
-

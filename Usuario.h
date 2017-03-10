@@ -1,11 +1,13 @@
 #include <string>
 
+using namespace std;
+
 #ifndef USUARIO_H
 #define USUARIO_H
 
 class Usuario
 {
-	prodtected:
+	protected:
 		string nombre;
 
 	public:

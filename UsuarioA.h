@@ -1,5 +1,6 @@
 #include "Usuario.h"
 
+using namespace std;
 
 #ifndef USUARIOA_H
 #define USUARIOA_H

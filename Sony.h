@@ -6,9 +6,10 @@
 class Sony : public Consola
 {
 	public:
-		virtual string getModelo();
-        virtual string getSerie();
+		Sony();
+        Sony(int, int, char, string, double);
 
+		virtual string getModelo();
 };
 
 #endif
