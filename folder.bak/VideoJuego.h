@@ -1,7 +1,4 @@
 #include <string>
-#include <boost/serialization/vector.hpp>
-#include <boost/serialization/base_object.hpp>
-#include <boost/serialization/assume_abstract.hpp>
 
 using namespace std;
 
@@ -10,9 +7,6 @@ using namespace std;
 
 class VideoJuego
 {
-	//Serializacion
-    friend class boost::serialization::access;
-
 	protected:
 		string nombre;
 		int year;
@@ -22,14 +16,6 @@ class VideoJuego
 		char estado; //'N' nuevo 'U' usado
 		string serie;
 		double precio;
-
-	//Serializacion para atributos
-    template<class Archive>
-    void serialize(Archive & ar, const unsigned int /* file_version */){
-		ar & nombre & year & consola & jugadores & genero & estado & serie & precio;
-    }
-
-
 
 	public:
 		//Constructor
@@ -44,7 +30,6 @@ class VideoJuego
 		string getGenero();
 		char getEstado();
 		virtual string getSerie();
-		string getserie(){return serie;}
 		double getPrecio();
 
 		//Setters
@@ -58,7 +43,7 @@ class VideoJuego
 		void setPrecio(double);
 		
 		//Destructor
-		virtual ~VideoJuego();
+		~VideoJuego();
 };
 
 #endif

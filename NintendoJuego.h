@@ -5,11 +5,21 @@
 
 class NintendoJuego : public VideoJuego
 {
-	public:
-	NintendoJuego();
-    NintendoJuego(string, int, string, int, string, char, string, double);
+	//Serializacion
+    friend class boost::serialization::access;
 
-	string getSerie();
-	string getConsola();	
+	public:
+		NintendoJuego(){}
+   		NintendoJuego(string, int, string, int, string, char, string, double);
+
+		string getSerie();
+		string getConsola();	
+
+	//Serializacion para atributos
+    template<class Archive>
+    void serialize(Archive & ar, const unsigned int /* file_version */){
+    	ar & boost::serialization::base_object<VideoJuego>(*this);
+	}
+
 };
 #endif

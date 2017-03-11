@@ -1,7 +1,4 @@
 #include <string>
-#include <boost/serialization/vector.hpp>
-#include <boost/serialization/base_object.hpp>
-#include <boost/serialization/assume_abstract.hpp>
 
 using namespace std;
 
@@ -10,22 +7,12 @@ using namespace std;
 
 class Consola
 {
-	//Serializacion
-	friend class boost::serialization::access;
-
 	protected:
 		int year;
 		int modelo; //Depende de la clase hija
 		char estado; //'N' Nuevo; 'U' Usado
 		string serie; //Depende e la clase hija
 		double precio;
-
-	//Serializacion para atributos
-	template<class Archive>
-	void serialize(Archive & ar, const unsigned int /* file_version */){
-		ar & year & modelo & estado & serie & precio;
-	}
-	
 
 	public:
 		//Constructor
@@ -47,7 +34,7 @@ class Consola
 		void setPrecio(double);
 		
 		//Destructor
-		virtual ~Consola();	
+		virtual ~Consola();
 };
 
 #endif

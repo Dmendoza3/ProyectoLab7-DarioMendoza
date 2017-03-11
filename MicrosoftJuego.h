@@ -5,11 +5,20 @@
 
 class MicrosoftJuego : public VideoJuego
 {
-	public:
-	MicrosoftJuego();
-    MicrosoftJuego(string, int, string, int, string, char, string, double);
+	//Serializacion
+    friend class boost::serialization::access;	
 
-	string getSerie(); 
-    string getConsola();
+	public:
+		MicrosoftJuego(){}
+    	MicrosoftJuego(string, int, string, int, string, char, string, double);
+
+		string getSerie(); 
+    	string getConsola();
+
+	//Serializacion para atributos
+    template<class Archive>
+    void serialize(Archive & ar, const unsigned int /* file_version */){
+		ar & boost::serialization::base_object<VideoJuego>(*this);
+    }
 };
 #endif

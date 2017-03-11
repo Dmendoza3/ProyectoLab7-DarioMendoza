@@ -36,41 +36,23 @@
 #include <fstream>
 #include <exception>
 #include <regex>
-#include <boost/archive/polymorphic_binary_iarchive.hpp>
-#include <boost/archive/polymorphic_binary_oarchive.hpp>
 
 void sesionAdmin(DataBase*, UsuarioA*);
 void sesionTemporal(DataBase*, UsuarioT*);
-/////////////////////////
-void save(const DataBase &s, const char* filename)
-{
-    // make an archive
-    std::ofstream ofs(filename, std::ios::binary);
-    boost::archive::polymorphic_binary_oarchive oa(ofs);
-    oa << s;
-}
-
-void restore(DataBase &s, const char* filename)
-{
-    // open the archive
-    std::ifstream ifs(filename, std::ios::binary);
-    boost::archive::polymorphic_binary_iarchive ia(ifs);
-
-    // restore the schedule from the archive
-    ia >> s;
-}
-/////////////////////
-
 
 int main()
 {
 	DataBase db;
-    restore(db, "DataBase.bin");
-
 	UsuarioA admin("admin", "password");
 	UsuarioT temp("temp");
 
 	bool sesion = true;
+
+	//TODO:Cargar base de datos
+	//FileAdmin.cargar(db);
+
+	//TODO:Inicio de sesion administrador o temporal
+
 
 	int op = 1;
 
@@ -115,9 +97,11 @@ int main()
 				sesion = false;
 			break;}
 		}
-	}
 
-	save(db, "DataBase.bin");
+		//TODO:Guardar en base de datos
+	}
+	//string consolas[] = {"",""};
+
 	return 0;
 }
 
@@ -160,7 +144,7 @@ void pedirSerie(string* se, DataBase* db, bool isConsola)
 {
 	bool found = true;
 
-	regex reg("[0-9]+");
+	regex reg("[1-9]+");
 
 	while(found){
 		cout << "Ingrese la serie:\n";
@@ -188,7 +172,7 @@ void pedirSerie(string* se, DataBase* db, bool isConsola)
 		{
 			//Revisar si no hay serie en lista de Juegos
 			for(VideoJuego* gam : db->juegos)
-				if((*se) == (*gam).getserie())
+				if((*se) == (*gam).getSerie())
 				{
 					found = true;
 					cout << "Error: Serie ya existe.\n";
@@ -506,7 +490,7 @@ void imprimirConsolas(DataBase* db)
 
 void imprimirVideoJuegos(DataBase* db)
 {
-	int juegos[9] = {0};
+	int juegos[9];
 	contarJuegos(db, juegos);
 
 	cout << "Juegos de Microsoft: " << juegos[0] << endl
