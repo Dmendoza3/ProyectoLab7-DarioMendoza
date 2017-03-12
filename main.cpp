@@ -520,7 +520,7 @@ void imprimirVideoJuegos(DataBase* db)
 	<<		"Juegos de Ubisoft: " << juegos[8] << endl;
 
 
-	cout << "|In|\t|Serie|\t|Nombre|\t|Consola|\t|Jugadores|\t|Genero|\t|Año|\t|Precio|\n";	
+	cout << "|In|\t|Serie|\t\t|Nombre|\t|Consola|\t\t\t|Jugadores|\t|Genero|\t|Año|\t|Precio|\n";	
 
 	int i = 0;
 	for(VideoJuego* con : db->juegos)
